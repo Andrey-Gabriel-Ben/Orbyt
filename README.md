@@ -1,87 +1,91 @@
 <div align="center">
 
-<img src="orbyt/assets/logo/logo-orbyt.png" width="500"/>
+<img src="orbyt/assets/logo/logo-orbyt.png" width="450"/>
 
-# 🚀 Orbyt - Sistema de Gestão de Ordens de Serviço
+# 🚀 ORBYT
 
-### Gestão inteligente de atendimentos técnicos
+### Sistema Inteligente de Gestão de Ordens de Serviço
+
+<p>
+Desenvolvido para otimizar o gerenciamento de atendimentos técnicos, equipamentos e clientes da empresa fictícia <b>Senac Solutions</b>.
+</p>
 
 <br>
 
-<img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange?style=for-the-badge" />
 
-<img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/>
+<img src="https://img.shields.io/badge/Java-17+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
 
-<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white"/>
+<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
 
-<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white"/>
+<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
 
-<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
+<img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white" />
 
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
 
 </div>
 
 ---
 
-# 📌 Sobre o Projeto
+# 📖 Sobre o Projeto
 
-O **Orbyt** é um sistema de gestão de ordens de serviço desenvolvido para a empresa fictícia **Senac Solutions**, especializada em manutenção de computadores e equipamentos de informática.
+O **Orbyt** é um sistema de gerenciamento de ordens de serviço desenvolvido para a empresa fictícia **Senac Solutions**, especializada em manutenção de computadores e equipamentos de informática.
 
-O sistema foi criado com o objetivo de modernizar e otimizar o processo de atendimento técnico, substituindo controles manuais realizados por planilhas e anotações físicas.
-
-Com uma interface intuitiva e recursos voltados para produtividade, o sistema permite o gerenciamento eficiente de clientes, equipamentos, técnicos e ordens de serviço.
+O objetivo do sistema é substituir processos manuais realizados através de planilhas e registros físicos, oferecendo uma solução moderna, organizada e eficiente para controle de atendimentos técnicos.
 
 ---
 
 # 🎯 Objetivos
 
-- Centralizar o gerenciamento das ordens de serviço.
-- Melhorar a organização dos atendimentos técnicos.
-- Reduzir erros causados por controles manuais.
-- Facilitar o acompanhamento do status dos serviços.
-- Garantir maior produtividade e controle operacional.
+* 📋 Gerenciar ordens de serviço de forma centralizada
+* 👥 Controlar informações de clientes
+* 💻 Registrar equipamentos e diagnósticos
+* 👨‍🔧 Organizar atividades dos técnicos
+* 📈 Melhorar a produtividade operacional
+* 🔎 Facilitar consultas e acompanhamento de serviços
 
 ---
 
 # ⚙️ Funcionalidades
 
-### 👤 Gestão de Clientes
+## 👤 Gestão de Clientes
 
-- Cadastro de clientes.
-- Consulta e atualização de informações.
-- Histórico de atendimentos.
+* Cadastro de clientes
+* Atualização de informações
+* Histórico de atendimentos
 
-### 💻 Gestão de Equipamentos
+## 💻 Gestão de Equipamentos
 
-- Cadastro de equipamentos.
-- Associação de equipamentos aos clientes.
-- Registro de problemas identificados.
+* Cadastro de equipamentos
+* Associação com clientes
+* Registro de defeitos e diagnósticos
 
-### 🛠️ Gestão de Ordens de Serviço
+## 🛠️ Gestão de Ordens de Serviço
 
-- Abertura de novas ordens.
-- Atualização de status.
-- Registro de diagnósticos.
-- Controle de serviços executados.
+* Abertura de OS
+* Atualização de status
+* Controle de execução
+* Histórico de manutenção
 
-### 👨‍🔧 Gestão de Técnicos
+## 👨‍🔧 Gestão de Técnicos
 
-- Cadastro de técnicos.
-- Atribuição de ordens de serviço.
-- Controle de atendimentos realizados.
+* Cadastro de técnicos
+* Distribuição de atendimentos
+* Controle de produtividade
 
 ---
 
 # 🏗️ Tecnologias Utilizadas
 
-| Tecnologia | Descrição |
-|------------|------------|
-| Java | Linguagem principal do sistema |
-| PostgreSQL | Banco de dados relacional |
-| Supabase | Backend e gerenciamento de dados |
-| Git | Controle de versão |
-| GitHub | Hospedagem do projeto |
+| Tecnologia | Utilização                    |
+| ---------- | ----------------------------- |
+| Java       | Desenvolvimento da aplicação  |
+| Maven      | Gerenciamento de dependências |
+| PostgreSQL | Banco de dados                |
+| Supabase   | Backend e integração de dados |
+| Git        | Controle de versão            |
+| GitHub     | Hospedagem do projeto         |
 
 ---
 
@@ -104,36 +108,33 @@ ORBYT
 │                   └── senacsolutions
 │                       └── Main.java
 │
-└── pom.xml
+├── pom.xml
+└── target
 ```
 
----
+# 🚀 Como Executar
 
-# 🚀 Como Executar o Projeto
-
-### Pré-requisitos
-
-- Java 17 ou superior
-- Maven
-- PostgreSQL
-- Conta no Supabase
-
-### Clonando o repositório
+### Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/orbyt.git
+git clone https://github.com/alexx-al3/Orbyt.git
 ```
 
-### Entrando no diretório
+### Entrar na pasta
 
 ```bash
-cd orbyt
+cd Orbyt
 ```
 
-### Executando
+### Compilar
 
 ```bash
 mvn clean install
+```
+
+### Executar
+
+```bash
 mvn exec:java
 ```
 
@@ -141,9 +142,9 @@ mvn exec:java
 
 # 📊 Status do Projeto
 
-🚧 Em desenvolvimento
+🚧 **Em Desenvolvimento**
 
-Funcionalidades sendo implementadas de forma incremental seguindo os requisitos definidos para o projeto.
+O sistema está sendo desenvolvido de forma incremental conforme os requisitos definidos para o projeto acadêmico.
 
 ---
 
@@ -153,26 +154,18 @@ Funcionalidades sendo implementadas de forma incremental seguindo os requisitos 
 <tr>
 
 <td align="center">
-<a href="https://github.com/usuario1">
-<img src="https://github.com/usuario1.png" width="120px;" alt="Aluno 1"/>
+<a href="https://github.com/alexx-al3">
+<img src="https://github.com/alexx-al3.png" width="120px;" alt="Alex Alves"/>
 <br>
-<b>Nome do Aluno 1</b>
+<b>Alex Alves</b>
 </a>
 </td>
 
 <td align="center">
-<a href="https://github.com/usuario2">
-<img src="https://github.com/usuario2.png" width="120px;" alt="Aluno 2"/>
+<a href="https://github.com/Andrey-Gabriel-Ben">
+<img src="https://github.com/Andrey-Gabriel-Ben.png" width="120px;" alt="Andre Gabriel"/>
 <br>
-<b>Nome do Aluno 2</b>
-</a>
-</td>
-
-<td align="center">
-<a href="https://github.com/usuario3">
-<img src="https://github.com/usuario3.png" width="120px;" alt="Aluno 3"/>
-<br>
-<b>Nome do Aluno 3</b>
+<b>Andre Gabriel</b>
 </a>
 </td>
 
@@ -187,10 +180,10 @@ Funcionalidades sendo implementadas de forma incremental seguindo os requisitos 
 <tr>
 
 <td align="center">
-<a href="https://github.com/orientador">
-<img src="https://github.com/orientador.png" width="140px;" alt="Orientador"/>
+<a href="https://github.com/razevedocosta">
+<img src="https://github.com/razevedocosta.png" width="140px;" alt="Rodrigo Azevedo"/>
 <br>
-<b>Nome do Orientador</b>
+<b>Prof. Rodrigo Azevedo</b>
 </a>
 </td>
 
@@ -199,14 +192,16 @@ Funcionalidades sendo implementadas de forma incremental seguindo os requisitos 
 
 ---
 
-# 📄 Licença
+# 📝 Licença
 
-Este projeto foi desenvolvido para fins acadêmicos como parte das atividades da **Senac Solutions**.
+Projeto desenvolvido para fins acadêmicos no curso de Desenvolvimento de Sistemas.
 
 ---
 
 <div align="center">
 
-Desenvolvido com ❤️ pela equipe Orbyt
+### ⭐ Se este projeto foi interessante para você, deixe uma estrela no repositório!
+
+Desenvolvido com ❤️ pela equipe ORBYT.
 
 </div>
