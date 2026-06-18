@@ -4,16 +4,16 @@
 
 # 🚀 ORBYT
 
-### Sistema Inteligente de Gestão de Ordens de Serviço
+### Sistema Desktop de Gestão de Ordens de Serviço
 
 <p>
-Solução desenvolvida para gerenciamento de clientes, equipamentos, técnicos e ordens de serviço da empresa fictícia <b>Senac Solutions</b>.
+Desenvolvido para otimizar o gerenciamento de atendimentos técnicos, equipamentos, clientes e ordens de serviço da empresa fictícia <b>Senac Solutions</b>.
 </p>
 
 <br>
 
 <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Java-17+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+<img src="https://img.shields.io/badge/Java-20-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
 <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
 <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
 <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white" />
@@ -31,47 +31,48 @@ Solução desenvolvida para gerenciamento de clientes, equipamentos, técnicos e
 
 # 📖 Sobre o Projeto
 
-O **ORBYT** é um sistema de gerenciamento de ordens de serviço desenvolvido para a empresa fictícia **Senac Solutions**, especializada em manutenção de computadores e equipamentos de informática.
+O **ORBYT** é um sistema desktop de gerenciamento de Ordens de Serviço desenvolvido para a empresa fictícia **Senac Solutions**, especializada em manutenção de computadores e equipamentos de informática.
 
-O projeto surgiu da necessidade de substituir processos manuais realizados por planilhas e registros físicos, proporcionando maior organização, rastreabilidade e eficiência no controle operacional.
+O sistema foi criado para substituir controles realizados em planilhas e registros manuais, centralizando todas as informações em uma única aplicação.
 
-O sistema centraliza informações de clientes, equipamentos, técnicos e serviços executados, permitindo melhor acompanhamento dos atendimentos e aumento da produtividade.
+A proposta é proporcionar maior organização, rastreabilidade e eficiência no gerenciamento de clientes, equipamentos, técnicos e atendimentos.
 
 ---
 
 # 🎯 Objetivos
 
-- 📋 Centralizar o gerenciamento de ordens de serviço
-- 👥 Organizar o cadastro de clientes
-- 💻 Controlar equipamentos e diagnósticos
-- 👨‍🔧 Gerenciar técnicos e atendimentos
+- 📋 Gerenciar Ordens de Serviço de forma centralizada
+- 👥 Controlar informações de clientes
+- 💻 Registrar equipamentos e diagnósticos
+- 👨‍🔧 Organizar atividades dos técnicos
 - 📈 Melhorar a produtividade operacional
 - 🔎 Facilitar consultas e acompanhamento dos serviços
-- 📊 Gerar informações para tomada de decisão
+- 📊 Gerar informações para apoio à tomada de decisão
 
 ---
 
 # 🏛️ Arquitetura do Sistema
 
 ```text
-┌─────────────────┐
-│     Usuário     │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Aplicação Java  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│    Supabase     │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ PostgreSQL DB   │
-└─────────────────┘
+┌───────────────┐
+│    Usuário    │
+└───────┬───────┘
+        │
+        ▼
+┌────────────────────┐
+│ Aplicação Java 20  │
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────┐
+│     Supabase       │
+│ API + Persistência │
+└─────────┬──────────┘
+          │
+          ▼
+┌────────────────────┐
+│    PostgreSQL      │
+└────────────────────┘
 ```
 
 ---
@@ -81,8 +82,8 @@ O sistema centraliza informações de clientes, equipamentos, técnicos e servi�
 ## 👤 Gestão de Clientes
 
 - Cadastro de clientes
-- Atualização de informações
 - Consulta de clientes
+- Atualização de informações
 - Histórico de atendimentos
 
 ## 💻 Gestão de Equipamentos
@@ -91,47 +92,48 @@ O sistema centraliza informações de clientes, equipamentos, técnicos e servi�
 - Associação com clientes
 - Registro de defeitos
 - Registro de diagnósticos
+- Histórico de manutenção
 
 ## 🛠️ Gestão de Ordens de Serviço
 
-- Abertura de OS
+- Abertura de Ordem de Serviço
 - Alteração de status
-- Controle de execução
-- Histórico de manutenção
-- Consulta de serviços realizados
+- Acompanhamento do atendimento
+- Registro de observações
+- Histórico completo da manutenção
 
 ## 👨‍🔧 Gestão de Técnicos
 
 - Cadastro de técnicos
-- Distribuição de atendimentos
-- Controle de produtividade
-- Histórico de serviços realizados
+- Associação de técnicos às OS
+- Controle de atendimentos
+- Histórico de serviços executados
 
 ---
 
 # 📋 Regras de Negócio
 
 - Todo cliente pode possuir vários equipamentos.
-- Todo equipamento pertence a apenas um cliente.
-- Uma Ordem de Serviço deve estar vinculada a um cliente.
-- Uma Ordem de Serviço deve possuir um equipamento associado.
-- Uma Ordem de Serviço deve possuir um status válido.
+- Todo equipamento deve estar vinculado a um cliente.
+- Toda Ordem de Serviço deve possuir um cliente associado.
+- Toda Ordem de Serviço deve possuir um equipamento associado.
+- Toda Ordem de Serviço deve possuir um status válido.
 - Um técnico pode atender várias Ordens de Serviço.
-- Uma Ordem de Serviço só poderá ser concluída após diagnóstico.
-- Todo atendimento realizado deve permanecer registrado para consulta futura.
+- Uma Ordem de Serviço só poderá ser concluída após o registro do diagnóstico.
+- Todos os atendimentos devem permanecer armazenados para consultas futuras.
 
 ---
 
-# 🗄️ Modelo de Dados
+# 🗄️ Modelo Conceitual
 
-### Principais Entidades
+## Entidades Principais
 
 - Cliente
 - Equipamento
 - Técnico
 - Ordem de Serviço
 
-### Relacionamentos
+## Relacionamentos
 
 ```text
 Cliente
@@ -139,20 +141,20 @@ Cliente
 ├── Equipamento
 │
 └── OrdemServico
-       │
-       └── Técnico
+        │
+        └── Técnico
 ```
 
 ---
 
 # 🏗️ Tecnologias Utilizadas
 
-| Tecnologia | Utilização |
+| Tecnologia | Finalidade |
 |------------|------------|
-| Java 17 | Desenvolvimento da aplicação |
+| Java 20 | Desenvolvimento da aplicação |
 | Maven | Gerenciamento de dependências |
 | PostgreSQL | Banco de dados |
-| Supabase | Backend e integração |
+| Supabase | Persistência e integração |
 | Git | Controle de versão |
 | GitHub | Hospedagem do projeto |
 
@@ -166,27 +168,6 @@ Cliente
 - Git
 - GitHub
 - Draw.io
-- Figma
-
----
-
-# 📸 Demonstração
-
-## Logo do Projeto
-
-<img src="orbyt/assets/logo/logo-orbyt.png" width="300"/>
-
-### Telas do Sistema
-
-🚧 Em desenvolvimento
-
-Adicione aqui futuramente:
-
-- Dashboard
-- Cadastro de Clientes
-- Cadastro de Equipamentos
-- Ordens de Serviço
-- Relatórios
 
 ---
 
@@ -208,10 +189,20 @@ ORBYT
 │               └── com
 │                   └── senacsolutions
 │                       ├── Main.java
+│                       │
 │                       ├── model
+│                       │   ├── Cliente.java
+│                       │   ├── Equipamento.java
+│                       │   ├── Tecnico.java
+│                       │   └── OrdemServico.java
+│                       │
 │                       ├── repository
+│                       │
 │                       ├── service
-│                       └── controller
+│                       │
+│                       ├── controller
+│                       │
+│                       └── util
 │
 ├── pom.xml
 └── target
@@ -219,27 +210,48 @@ ORBYT
 
 ---
 
+# 📸 Demonstração
+
+## Logo Oficial
+
+<img src="orbyt/assets/logo/logo-orbyt.png" width="300"/>
+
+## Telas do Sistema
+
+🚧 Em desenvolvimento
+
+Futuras demonstrações:
+
+- Dashboard Principal
+- Cadastro de Clientes
+- Cadastro de Equipamentos
+- Gestão de Técnicos
+- Gestão de Ordens de Serviço
+- Relatórios
+
+---
+
 # 🚀 Como Executar
 
-## Clonar o repositório
+## Clonar o Repositório
 
 ```bash
-git clone https://github.com/alexx-al3/Orbyt.git
+git clone https://github.com/Andrey-Gabriel-Ben/Orbyt
 ```
 
-## Entrar na pasta
+## Acessar o Diretório
 
 ```bash
 cd Orbyt
 ```
 
-## Instalar dependências
+## Compilar o Projeto
 
 ```bash
 mvn clean install
 ```
 
-## Executar o projeto
+## Executar
 
 ```bash
 mvn exec:java
@@ -252,27 +264,31 @@ mvn exec:java
 ## Concluído
 
 - [x] Levantamento de requisitos
-- [x] Modelagem inicial do banco
-- [x] Estruturação do projeto Java
+- [x] Análise de negócio
+- [x] Definição da arquitetura
 - [x] Configuração do Supabase
+- [x] Estruturação inicial do projeto
 
 ## Em Desenvolvimento
 
-- [ ] CRUD Clientes
-- [ ] CRUD Equipamentos
-- [ ] CRUD Técnicos
-- [ ] CRUD Ordens de Serviço
+- [ ] Cadastro de Clientes
+- [ ] Cadastro de Equipamentos
+- [ ] Cadastro de Técnicos
+- [ ] Cadastro de Ordens de Serviço
+- [ ] Integração completa com banco de dados
 
 ## Futuras Implementações
 
 - [ ] Dashboard gerencial
 - [ ] Relatórios PDF
+- [ ] Exportação de dados
 - [ ] Controle de permissões
 - [ ] Sistema multiempresa
-- [ ] Integração WhatsApp
 - [ ] API REST
+- [ ] Notificações automáticas
+- [ ] Integração WhatsApp
+- [ ] Painel administrativo
 - [ ] Versão SaaS
-- [ ] Painel Administrativo
 
 ---
 
@@ -280,7 +296,7 @@ mvn exec:java
 
 🚧 Projeto em desenvolvimento acadêmico.
 
-Versão atual:
+**Versão Atual**
 
 ```text
 v0.1.0-alpha
@@ -295,26 +311,26 @@ v0.1.0-alpha
 
 <td align="center">
 <a href="https://github.com/alexx-al3">
-<img src="https://github.com/alexx-al3.png" width="120px"/>
+<img src="https://github.com/alexx-al3.png" width="120px" alt="Alex Alves"/>
 <br>
 <b>Alex Alves</b>
 </a>
 <br>
-Backend Developer
+Desenvolvedor FrontEnd
 <br>
-Modelagem de Banco de Dados
+
 </td>
 
 <td align="center">
 <a href="https://github.com/Andrey-Gabriel-Ben">
-<img src="https://github.com/Andrey-Gabriel-Ben.png" width="120px"/>
+<img src="https://github.com/Andrey-Gabriel-Ben.png" width="120px" alt="Andrey Gabriel"/>
 <br>
 <b>Andrey Gabriel</b>
 </a>
 <br>
-Backend Developer
+Desenvolvedor Backend
 <br>
-Testes e Documentação
+
 </td>
 
 </tr>
@@ -329,7 +345,7 @@ Testes e Documentação
 
 <td align="center">
 <a href="https://github.com/razevedocosta">
-<img src="https://github.com/razevedocosta.png" width="140px"/>
+<img src="https://github.com/razevedocosta.png" width="140px" alt="Prof Rodrigo Azevedo"/>
 <br>
 <b>Prof. Rodrigo Azevedo</b>
 </a>
@@ -342,26 +358,38 @@ Orientador do Projeto
 
 ---
 
-# 📚 Contexto Acadêmico
+# 📚 Competências Aplicadas
 
-Projeto desenvolvido como atividade prática do curso de Desenvolvimento de Sistemas do SENAC.
-
-O objetivo é aplicar conceitos de:
-
-- Programação Orientada a Objetos
-- Banco de Dados
-- Modelagem de Sistemas
+- Programação Orientada a Objetos (POO)
+- Java 20
+- Banco de Dados Relacional
+- PostgreSQL
+- Integração com Supabase
 - Engenharia de Software
-- Versionamento com Git
-- Integração com Backend
+- Modelagem de Sistemas
+- Arquitetura de Software
+- Git e GitHub
+- Desenvolvimento de Sistemas
+
+---
+
+# 🎯 Público-Alvo
+
+Empresas de assistência técnica e manutenção de equipamentos que necessitam de um sistema para:
+
+- Controle de clientes
+- Registro de equipamentos
+- Gestão de Ordens de Serviço
+- Organização de atendimentos
+- Histórico de manutenção
 
 ---
 
 # 📄 Licença
 
-Este projeto possui finalidade acadêmica.
+Projeto desenvolvido para fins acadêmicos no curso de Desenvolvimento de Sistemas.
 
-© 2026 Equipe ORBYT - Todos os direitos reservados.
+© 2026 Equipe ORBYT. Todos os direitos reservados.
 
 ---
 
@@ -369,8 +397,8 @@ Este projeto possui finalidade acadêmica.
 
 ## ⭐ Gostou do projeto?
 
-Deixe uma estrela no repositório e acompanhe sua evolução.
+Deixe uma estrela no repositório para acompanhar sua evolução.
 
-Desenvolvido com ❤️ pela Equipe ORBYT
+Desenvolvido com ❤️ pela Equipe ORBYT.
 
 </div>
