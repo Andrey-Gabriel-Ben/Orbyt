@@ -6,7 +6,7 @@
 -- 1. CRIAÇÃO DOS TIPOS ENUMERADOS (ENUMS)
 CREATE TYPE cargo_usuario AS ENUM ('ATENDENTE', 'TECNICO');
 CREATE TYPE status_os AS ENUM ('EM_ABERTO', 'ORÇAMENTO EM ANÁLISE', 'EM_ANDAMENTO', 'FINALIZADA');
-
+CREATE TYPE forma_pagamento AS ENUM ('DINHEIRO', 'CARTAO_CREDITO', 'CARTAO_DEBITO', 'PIX');
 
 -- 2. TABELA: CLIENTE
 CREATE TABLE cliente (
@@ -69,4 +69,17 @@ CREATE TABLE ordem_servico (
     CONSTRAINT fk_os_tecnico 
         FOREIGN KEY (id_tecnico) 
         REFERENCES usuario(id_usuario)
+);
+
+-- 6. CRIAÇÃO DA TABELA: PAGAMENTO
+CREATE TABLE pagamento (
+    id_pagamento SERIAL PRIMARY KEY,
+    num_os INT NOT NULL UNIQUE,       -- UNIQUE garante que cada OS tenha apenas um registro de pagamento
+    valor_pago DECIMAL(10,2) NOT NULL,
+    data_pagamento TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    metodo forma_pagamento NOT NULL,
+    
+    CONSTRAINT fk_pagamento_os 
+        FOREIGN KEY (num_os) 
+        REFERENCES ordem_servico(num_os)
 );
