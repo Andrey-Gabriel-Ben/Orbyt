@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="orbyt/assets/logo/logo-orbyt.png" width="300"/>
+<img src="assets/logo/logo-orbyt.png" width="300"/>
 
 ### Sistema Desktop de Gestão de Ordens de Serviço
 
