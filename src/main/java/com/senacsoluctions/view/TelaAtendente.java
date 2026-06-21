@@ -1,10 +1,17 @@
 package com.senacsoluctions.view;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import java.awt.*;
-
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Pack;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 import com.senacsoluctions.controler.UsuarioControler;
 import com.senacsoluctions.model.Usuario;
@@ -94,6 +101,7 @@ public class TelaAtendente extends JFrame {
     private void configurarEventos() {
         btnCadastrarCliente.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Abrindo cadastro de clientes...");
+            new TelaCadastroCliente().setVisible(true);
         });
 
         btnCadastrarUsuario.addActionListener(e -> {
@@ -113,4 +121,5 @@ public class TelaAtendente extends JFrame {
             JOptionPane.showMessageDialog(this, "Abrindo busca avançada por Nome/CPF...");
         });
     }
+
 }
