@@ -2,8 +2,6 @@ package com.senacsoluctions.view;
 
 import javax.swing.*;
 
-import com.senacsoluctions.model.Usuario;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
