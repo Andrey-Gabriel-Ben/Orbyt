@@ -1,1 +1,1 @@
-package com.senacsoluctions.DAO;
+package com.senacsoluctions.dao;
