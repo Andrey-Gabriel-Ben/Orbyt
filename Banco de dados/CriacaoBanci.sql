@@ -5,7 +5,7 @@
 
 -- 1. CRIAÇÃO DOS TIPOS ENUMERADOS (ENUMS)
 CREATE TYPE cargo_usuario AS ENUM ('ATENDENTE', 'TECNICO');
-CREATE TYPE status_os AS ENUM ('EM_ABERTO', 'ORÇAMENTO EM ANÁLISE', 'EM_ANDAMENTO', 'FINALIZADA');
+CREATE TYPE status_os AS ENUM ('EM_ABERTO', 'ORÇAMENTO EM ANÁLISE', 'EM_ANDAMENTO', 'FINALIZADA', 'CONCLUIDA');
 CREATE TYPE forma_pagamento AS ENUM ('DINHEIRO', 'CARTAO_CREDITO', 'CARTAO_DEBITO', 'PIX');
 
 -- 2. TABELA: CLIENTE
@@ -25,7 +25,6 @@ CREATE TABLE equipamento (
     marca VARCHAR(50) NOT NULL,
     modelo VARCHAR(50) NOT NULL,
     num_serie VARCHAR(50) NOT NULL UNIQUE,
-    descricao_defeito TEXT NOT NULL,
     id_cliente INT NOT NULL,
     
     -- Restrição de Integridade Referencial: Se o cliente for deletado, impede ou limpa
@@ -51,6 +50,7 @@ CREATE TABLE ordem_servico (
     data_abertura TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     data_limite DATE NOT NULL,       
     status status_os NOT NULL DEFAULT 'EM_ABERTO',
+    descricao_defeito TEXT NOT NULL,
     custo DECIMAL(10,2),            
     observacoes TEXT,               
     id_cliente INT NOT NULL,         

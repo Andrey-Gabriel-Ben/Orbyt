@@ -100,12 +100,10 @@ public class TelaAtendente extends JFrame {
 
     private void configurarEventos() {
         btnCadastrarCliente.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Abrindo cadastro de clientes...");
             new TelaCadastroCliente().setVisible(true);
         });
 
         btnCadastrarUsuario.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Abrindo cadastro de usuários...");
             new TelaCadastroUsuario().setVisible(true);
         });
 
