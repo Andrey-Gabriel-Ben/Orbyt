@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import com.senacsoluctions.controler.UsuarioControler;
 
 public class TelaLogin extends JFrame {
+    UsuarioControler uc = new UsuarioControler();
 
     // Componentes da tela (Declaração)
     private JLabel lblLogo;
@@ -112,7 +113,7 @@ public class TelaLogin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Agora passa o txtSenha (que é JPasswordField) perfeitamente
-                UsuarioControler.efetuarLogin(txtLogin, txtSenha, lblMensagemErro);
+                uc.efetuarLogin(txtLogin, txtSenha, lblMensagemErro);
             }
         });
     }

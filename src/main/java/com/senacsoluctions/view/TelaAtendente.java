@@ -1,11 +1,16 @@
 package com.senacsoluctions.view;
 
 import javax.swing.*;
+
 import java.awt.*;
+
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Pack;
+
+import com.senacsoluctions.controler.UsuarioControler;
 import com.senacsoluctions.model.Usuario;
 
 public class TelaAtendente extends JFrame {
-
+    UsuarioControler uc = new UsuarioControler();
     private Usuario atendenteLogado;
 
     // Componentes da Interface
@@ -19,9 +24,10 @@ public class TelaAtendente extends JFrame {
     public TelaAtendente(Usuario usuario) {
         this.atendenteLogado = usuario;
 
-        // Configurações básicas da janela do Menu Principal
+        // Configurações básicas da janela (Aumentei um pouco a largura para o texto
+        // caber folgado)
         setTitle("Orbyt - Painel do Atendente");
-        setSize(500, 450);
+        setSize(550, 480);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -29,43 +35,43 @@ public class TelaAtendente extends JFrame {
         // Gerenciador de Layout
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(12, 12, 12, 12); // Espaçamento harmônico
+        gbc.insets = new Insets(10, 20, 10, 20); // Mais margem nas laterais
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
         // 1. Mensagem de Boas-vindas no topo
-        lblBoasVindas = new JLabel("Olá, " + atendenteLogado.getNome() + " | Atendimento", SwingConstants.CENTER);
-        lblBoasVindas.setFont(new Font("Arial", Font.BOLD, 18));
-        lblBoasVindas.setForeground(new Color(173, 216, 230)); // Um azul claro elegante para destacar
+        lblBoasVindas = new JLabel("Olá, " + atendenteLogado.getNome() + " | Painel de Atendimento",
+                SwingConstants.CENTER);
+        lblBoasVindas.setFont(new Font("Segoe UI", Font.BOLD, 18)); // Segoe UI lida melhor com o FlatLaf
+        lblBoasVindas.setForeground(new Color(173, 216, 230)); // Azul claro pro texto
 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
+        gbc.insets = new Insets(15, 20, 25, 20); // Espaço maior abaixo do título
         add(lblBoasVindas, gbc);
 
-        // 2. Inicializando os Botões solicitados
-        btnCadastrarCliente = new JButton("👥 Cadastrar Clientes");
-        btnCadastrarUsuario = new JButton("🔑 Cadastrar Usuários (Funcionários)");
-        btnNovaOS = new JButton("➕ Iniciar Nova Ordem de Serviço");
-        btnOSPendentesEntrega = new JButton("📦 OS Finalizadas (Entrega Pendente)");
-        btnBuscarOS = new JButton("🔍 Buscar OS (Nome / CPF)");
+        // Resetando o insets para os botões
+        gbc.insets = new Insets(8, 20, 8, 20);
 
-        // Estilizando os botões para dar uma identidade visual moderna (FlatLaf se encarrega do resto)
-        Font fonteBotoes = new Font("Arial", Font.PLAIN, 14);
-        Dimension tamanhoBotao = new Dimension(200, 40);
+        // 2. Inicializando os Botões sem os emojis de texto
+        btnCadastrarCliente = new JButton("Cadastrar Clientes");
+        btnCadastrarUsuario = new JButton("Cadastrar Usuários (Funcionários)");
+        btnNovaOS = new JButton("Iniciar Nova Ordem de Serviço");
+        btnOSPendentesEntrega = new JButton("OS Finalizadas (Entrega Pendente)");
+        btnBuscarOS = new JButton("Buscar Ordens de Serviço");
 
-        JButton[] botoes = {btnCadastrarCliente, btnCadastrarUsuario, btnNovaOS, btnOSPendentesEntrega, btnBuscarOS};
+        // Estilizando todos os botões de forma padrão e moderna
+        Font fonteBotoes = new Font("Segoe UI", Font.PLAIN, 14);
+        Dimension tamanhoBotao = new Dimension(220, 42); // Botões ligeiramente mais altos
+
+        JButton[] botoes = { btnCadastrarCliente, btnCadastrarUsuario, btnNovaOS, btnOSPendentesEntrega, btnBuscarOS };
         for (JButton btn : botoes) {
             btn.setFont(fonteBotoes);
             btn.setPreferredSize(tamanhoBotao);
         }
 
-        // Destacando o botão de Nova OS por usabilidade (cor azul de ação)
-        btnNovaOS.setBackground(new Color(30, 144, 255));
-        btnNovaOS.setForeground(Color.WHITE);
-
         // 3. Posicionando os botões na tela (Um embaixo do outro)
-        
         gbc.gridy = 1;
         add(btnCadastrarCliente, gbc);
 
@@ -88,11 +94,11 @@ public class TelaAtendente extends JFrame {
     private void configurarEventos() {
         btnCadastrarCliente.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Abrindo cadastro de clientes...");
-            // Exemplo futuro: new TelaCadastroCliente().setVisible(true);
         });
 
         btnCadastrarUsuario.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Abrindo cadastro de usuários...");
+            new TelaCadastroUsuario().setVisible(true);
         });
 
         btnNovaOS.addActionListener(e -> {

@@ -1,20 +1,25 @@
 package com.senacsoluctions.controler;
 
 import com.senacsoluctions.model.Usuario;
+import com.senacsoluctions.view.TelaAtendente;
 
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.JPasswordField;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.senacsoluctions.dao.UsuarioDao;
 
-//import com.senacsoluctions.dao.UsuarioDAO; 
+
 
 public class UsuarioControler {
+    UsuarioDao ud = new UsuarioDao();
 
-    public static void efetuarLogin(JTextField txtLogin, JPasswordField txtSenha, JLabel lblMensagemErro) {
+    public void efetuarLogin(JTextField txtLogin, JPasswordField txtSenha, JLabel lblMensagemErro) {
         String login = txtLogin.getText().trim();
 
         // Agora o .getPassword() vai funcionar perfeitamente!
@@ -42,8 +47,7 @@ public class UsuarioControler {
         }
 
         // 3. LOGICA DO BANCO CONECTADA
-        UsuarioDao usuarioDao = new UsuarioDao();
-        Usuario usuarioLogado = usuarioDao.autenticarUsuario(login, senha);
+        Usuario usuarioLogado = ud.autenticarUsuario(login, senha);
 
         if (usuarioLogado != null) {
             lblMensagemErro.setText("");
@@ -81,4 +85,83 @@ public class UsuarioControler {
         }
 
     }
+
+    public static void cadastrarNovoUsuario(JTextField txtNome, JTextField txtLogin, JPasswordField txtSenha,
+            JComboBox<String> cbCargo, JLabel lblMensagemErro, JFrame telaAtual) {
+        String nome = txtNome.getText().trim();
+        String login = txtLogin.getText().trim();
+        String senha = new String(txtSenha.getPassword()).trim();
+        String cargo = (String) cbCargo.getSelectedItem();
+
+        // Limpando estados de erro visuais anteriores
+        txtNome.putClientProperty("JComponent.outline", null);
+        txtLogin.putClientProperty("JComponent.outline", null);
+        txtSenha.putClientProperty("JComponent.outline", null);
+        lblMensagemErro.setText("");
+
+        // Validações de campos vazios integradas ao FlatLaf
+        if (nome.isEmpty()) {
+            lblMensagemErro.setText("O campo Nome é obrigatório!");
+            txtNome.putClientProperty("JComponent.outline", "error");
+            txtNome.requestFocus();
+            return;
+        }
+
+        if (login.isEmpty()) {
+            lblMensagemErro.setText("O campo Usuário (Login) é obrigatório!");
+            txtLogin.putClientProperty("JComponent.outline", "error");
+            txtLogin.requestFocus();
+            return;
+        }
+
+        if (senha.isEmpty()) {
+            lblMensagemErro.setText("O campo Senha é obrigatório!");
+            txtSenha.putClientProperty("JComponent.outline", "error");
+            txtSenha.requestFocus();
+            return;
+        }
+
+        if (senha.length() < 8) {
+            lblMensagemErro.setText("A Senha precisa ter mais de 8 dígitos!");
+            txtSenha.putClientProperty("JComponent.outline", "error");
+            txtSenha.requestFocus();
+            return;
+        }
+
+        // --- SE PASSOU NAS VALIDAÇÕES: CRIPTOGRAFIA E PERSISTÊNCIA ---
+
+       // 1. Gera o Hash seguro da senha usando BCrypt
+        String senhaHasheada = BCrypt.hashpw(senha, BCrypt.gensalt());
+
+        // 2. Monta o Objeto de Modelo (User)
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setNome(nome);
+        novoUsuario.setLogin(login);
+        novoUsuario.setSenha(senhaHasheada); 
+        novoUsuario.setCargo(cargo);
+
+        // 3. Integração REAL com o banco através do DAO criado
+        
+        // Primeiro, valida se o login já existe para evitar erro de constraint duplicada
+        UsuarioDao usuarioDao = new UsuarioDao();
+        if (usuarioDao.buscarPorLogin(login) != null) {
+            lblMensagemErro.setText("Este nome de usuário (login) já está em uso!");
+            txtLogin.putClientProperty("JComponent.outline", "error");
+            txtLogin.requestFocus();
+            return;
+        }
+
+        // Chama o método do DAO para persistir
+        boolean sucesso = usuarioDao.salvarUsuario(novoUsuario); 
+        
+        if (sucesso) {
+            JOptionPane.showMessageDialog(telaAtual, "Usuário cadastrado com sucesso no Orbyt!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            telaAtual.dispose(); // Fecha a tela de cadastro automaticamente ao finalizar
+        } else {
+            lblMensagemErro.setText("Erro de conexão ao salvar no Supabase. Tente novamente.");
+        }
+
+    }
+
 }
+//
