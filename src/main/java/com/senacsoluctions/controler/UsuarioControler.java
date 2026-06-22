@@ -1,18 +1,19 @@
 package com.senacsoluctions.controler;
 
-import com.senacsoluctions.model.Usuario;
-import com.senacsoluctions.view.TelaAtendente;
-
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.JPasswordField;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.senacsoluctions.dao.UsuarioDao;
+import com.senacsoluctions.model.Usuario;
+import com.senacsoluctions.view.TelaAtendente;
+import com.senacsoluctions.view.TelaMenuTecnico;
 
 
 
@@ -66,10 +67,11 @@ public class UsuarioControler {
                     new TelaAtendente(usuarioLogado).setVisible(true);
                 });
 
-                case "TECNICO" -> {
-                    JOptionPane.showMessageDialog(null, "Tela do Técnico em desenvolvimento!");
-                    // new TelaTecnico(usuarioLogado).setVisible(true);
-                }
+                // T3: técnico agora vai para a tela de escolha de função
+                // (Minhas OS Pendentes / Iniciar Nova OS) em vez do diálogo provisório.
+                case "TECNICO" -> SwingUtilities.invokeLater(() -> {
+                    new TelaMenuTecnico(usuarioLogado).setVisible(true);
+                });
 
                 default -> {
                     // Se cair aqui, é porque tem um cargo no banco que não mapeamos no código
@@ -137,12 +139,13 @@ public class UsuarioControler {
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNome(nome);
         novoUsuario.setLogin(login);
-        novoUsuario.setSenha(senhaHasheada); 
+        novoUsuario.setSenha(senhaHasheada);
         novoUsuario.setCargo(cargo);
 
         // 3. Integração REAL com o banco através do DAO criado
-        
+
         // Primeiro, valida se o login já existe para evitar erro de constraint duplicada
+        // (agora que UsuarioDao.buscarPorLogin foi corrigido, essa checagem funciona de verdade)
         UsuarioDao usuarioDao = new UsuarioDao();
         if (usuarioDao.buscarPorLogin(login) != null) {
             lblMensagemErro.setText("Este nome de usuário (login) já está em uso!");
@@ -152,16 +155,15 @@ public class UsuarioControler {
         }
 
         // Chama o método do DAO para persistir
-        boolean sucesso = usuarioDao.salvarUsuario(novoUsuario); 
-        
+        boolean sucesso = usuarioDao.salvarUsuario(novoUsuario);
+
         if (sucesso) {
-            JOptionPane.showMessageDialog(telaAtual, "Usuário cadastrado com sucesso no Orbyt!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(telaAtual, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             telaAtual.dispose(); // Fecha a tela de cadastro automaticamente ao finalizar
         } else {
-            lblMensagemErro.setText("Erro de conexão ao salvar no Supabase. Tente novamente.");
+            lblMensagemErro.setText("Erro de conexão ao salvar no banco. Tente novamente.");
         }
 
     }
 
 }
-//

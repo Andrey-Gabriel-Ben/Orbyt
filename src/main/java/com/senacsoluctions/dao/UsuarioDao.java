@@ -1,8 +1,13 @@
 package com.senacsoluctions.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement; // Importa o BCrypt
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.senacsoluctions.model.Usuario;
-import org.mindrot.jbcrypt.BCrypt; // Importa o BCrypt
-import java.sql.*;
 
 public class UsuarioDao {
 
@@ -16,7 +21,7 @@ public class UsuarioDao {
 
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    // Pegamos a senha mascarada que está guardada no Supabase
+                    // Pegamos a senha mascarada que está guardada no banco
                     String senhaBanco = rs.getString("senha");
 
                     // 2. O BCrypt faz a mágica de conferir a senha digitada com o hash do banco
@@ -60,7 +65,11 @@ public class UsuarioDao {
     }
 
     public Usuario buscarPorLogin(String login) {
-        String sql = "SELECT * FROM usuarios WHERE LOWER(login) = LOWER(?)";
+        // CORRIGIDO: a tabela criada no CriacaoBanci.sql é "usuario" (singular) e
+        // a chave primária é "id_usuario" - a versão anterior consultava
+        // "usuarios"/"id", que não existem, então essa checagem de duplicidade
+        // nunca funcionava (sempre caía no catch e retornava null).
+        String sql = "SELECT * FROM usuario WHERE LOWER(login) = LOWER(?)";
 
         try (Connection conn = ConexaoBanco.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -70,7 +79,7 @@ public class UsuarioDao {
                 if (rs.next()) {
                     // Instancia o modelo e preenche com os dados vindos das colunas do banco
                     Usuario usuario = new Usuario();
-                    usuario.setIdUsuario(rs.getInt("id")); 
+                    usuario.setIdUsuario(rs.getInt("id_usuario"));
                     usuario.setNome(rs.getString("nome"));
                     usuario.setLogin(rs.getString("login"));
                     usuario.setCargo(rs.getString("cargo"));

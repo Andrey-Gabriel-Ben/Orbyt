@@ -1,7 +1,7 @@
 package com.senacsoluctions.view;
 
 import com.senacsoluctions.controler.OrdemServicoControler;
-import com.senacsoluctions.dao.ClienteDao; 
+import com.senacsoluctions.dao.ClienteDao;
 import com.senacsoluctions.dao.EquipamentoDao;
 import com.senacsoluctions.model.Cliente;
 import com.senacsoluctions.model.Equipamento;
@@ -22,7 +22,7 @@ public class TelaCadastroOS extends JFrame {
     private JButton btnNovoEquipamento;
 
     private JTextField txtCusto;
-    private JTextArea txtObservacoes;
+    private JTextArea txtDescricaoDefeito; // antes chamado (erroneamente) de txtObservacoes
 
     private JButton btnSalvarOS;
     private JLabel lblMensagemErro;
@@ -33,7 +33,7 @@ public class TelaCadastroOS extends JFrame {
 
     public TelaCadastroOS() {
         setTitle("Abertura de Ordem de Serviço");
-        setSize(500, 550); 
+        setSize(500, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -54,7 +54,7 @@ public class TelaCadastroOS extends JFrame {
         } catch (Exception e) {
             txtCpfCliente = new JFormattedTextField();
         }
-        
+
         gbc.gridx = 1; gbc.gridy = 0;
         gbc.weightx = 1.0;
         add(txtCpfCliente, gbc);
@@ -72,7 +72,7 @@ public class TelaCadastroOS extends JFrame {
         add(lblNomeClienteInfo, gbc);
 
         // --- BLOCO EQUIPAMENTO ---
-        gbc.gridwidth = 1; 
+        gbc.gridwidth = 1;
         gbc.gridx = 0; gbc.gridy = 2;
         add(new JLabel("Equipamento/Aparelho:"), gbc);
 
@@ -97,18 +97,18 @@ public class TelaCadastroOS extends JFrame {
         gbc.weightx = 1.0;
         add(txtCusto, gbc);
 
-        // --- BLOCO OBSERVAÇÕES ---
+        // --- BLOCO DESCRIÇÃO DO DEFEITO ---
         gbc.gridwidth = 1;
         gbc.gridx = 0; gbc.gridy = 4;
         add(new JLabel("Descrição do Defeito:"), gbc);
 
-        txtObservacoes = new JTextArea(4, 20);
-        txtObservacoes.setLineWrap(true);
-        txtObservacoes.setWrapStyleWord(true);
-        JScrollPane scrollObs = new JScrollPane(txtObservacoes);
+        txtDescricaoDefeito = new JTextArea(4, 20);
+        txtDescricaoDefeito.setLineWrap(true);
+        txtDescricaoDefeito.setWrapStyleWord(true);
+        JScrollPane scrollDefeito = new JScrollPane(txtDescricaoDefeito);
         gbc.gridx = 1; gbc.gridy = 4;
         gbc.gridwidth = 2;
-        add(scrollObs, gbc);
+        add(scrollDefeito, gbc);
 
         // --- MENSAGEM DE ERRO ---
         lblMensagemErro = new JLabel("");
@@ -134,14 +134,14 @@ public class TelaCadastroOS extends JFrame {
 
                 if (clienteSelecionado != null) {
                     lblNomeClienteInfo.setText("Cliente: " + clienteSelecionado.getNome());
-                    lblNomeClienteInfo.setForeground(new Color(100, 255, 100)); 
+                    lblNomeClienteInfo.setForeground(new Color(100, 255, 100));
                     lblMensagemErro.setText("");
-                    
+
                     // Atualiza a lista de aparelhos assim que o cliente é encontrado
                     atualizarListaEquipamentosDoCliente();
                 } else {
                     lblNomeClienteInfo.setText("Cliente não encontrado!");
-                    lblNomeClienteInfo.setForeground(new Color(255, 100, 100)); 
+                    lblNomeClienteInfo.setForeground(new Color(255, 100, 100));
                     clienteSelecionado = null;
                     cbEquipamento.removeAllItems(); // Limpa se não achar cliente
                 }
@@ -157,7 +157,7 @@ public class TelaCadastroOS extends JFrame {
                         clienteSelecionado,
                         cbEquipamento, // Enviando o JComboBox de equipamentos selecionado
                         txtCusto,
-                        txtObservacoes,
+                        txtDescricaoDefeito,
                         lblMensagemErro,
                         TelaCadastroOS.this
                 );
