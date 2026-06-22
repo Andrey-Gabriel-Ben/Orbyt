@@ -11,14 +11,34 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>20</maven.compiler.release>        
+        <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <argLine>-Dfile.encoding=UTF-8</argLine>
     </properties>
 
     <dependencies>
-        <!-- JUnit Jupiter (JUnit 5) para os testes -->
+
+        <!-- FlatLaf (tema moderno Swing) -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.4</version>
+        </dependency>
+
+        <!-- PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
+        <!-- BCrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- JUnit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -33,6 +53,7 @@
             <scope>test</scope>
         </dependency>
 
+<<<<<<< Updated upstream
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -57,16 +78,29 @@
             <version>2.0.29</version>
         </dependency>
 
+=======
+>>>>>>> Stashed changes
     </dependencies>
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>25</release>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.0</version>
             </plugin>
 
+            <!-- JAR executável -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -74,7 +108,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.senacsoluctions.main</mainClass>
+                            <mainClass>com.senacsoluctions.view.TelaLogin</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -91,6 +125,8 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
-    </build>    
+    </build>
+
 </project>

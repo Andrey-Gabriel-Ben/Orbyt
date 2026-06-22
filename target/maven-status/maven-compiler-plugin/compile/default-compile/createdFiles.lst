@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 com\senacsoluctions\dao\OrdemServicoDao$PreparadorDeParametros.class
 com\senacsoluctions\view\TelaOSFinalizadasPendentes.class
 com\senacsoluctions\utils\GeradorRelatorioOS.class
@@ -39,3 +40,12 @@ com\senacsoluctions\view\TelaAtendente.class
 com\senacsoluctions\view\TelaCadastroOS$1.class
 com\senacsoluctions\dao\EquipamentoDao.class
 com\senacsoluctions\model\Cliente.class
+=======
+com\senacsoluctions\model\Usuario.class
+com\senacsoluctions\view\TelaLogin.class
+com\senacsoluctions\view\TelaLogin$1.class
+com\senacsoluctions\controler\PagamentoControler.class
+com\senacsoluctions\view\TelaAtendente.class
+com\senacsoluctions\controler\UsuarioControler.class
+com\senacsoluctions\dao\UsuarioDao.class
+>>>>>>> Stashed changes
