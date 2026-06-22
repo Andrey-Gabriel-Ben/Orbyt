@@ -67,7 +67,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.senacsoluctions.main</mainClass>
+                            <mainClass>com/senacsoluctions/view/TelaLogin.java</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
