@@ -73,40 +73,78 @@ Com uma interface intuitiva e recursos voltados para produtividade, o sistema pe
 
 ---
 
-# 🏗️ Tecnologias Utilizadas
+# 🛠️ Tecnologias Utilizadas
 
-| Tecnologia | Descrição |
-|------------|------------|
-| Java | Linguagem principal do sistema |
-| PostgreSQL | Banco de dados relacional |
-| Supabase | Backend e gerenciamento de dados |
-| Git | Controle de versão |
-| GitHub | Hospedagem do projeto |
-
+Tecnologia| Finalidade
+Java 20| Desenvolvimento da aplicação
+Swing| Interface gráfica
+FlatLaf| Aparência moderna
+PostgreSQL| Banco de dados relacional
+Supabase| Hospedagem do banco
+JDBC| Comunicação com banco
+BCrypt| Criptografia de senhas
+Maven| Gerenciamento de dependências
+Git| Controle de versão
+GitHub| Colaboração e hospedagem
 ---
 
 # 📂 Estrutura do Projeto
 
-```text
 ORBYT
 │
-├── README.md
+├── .github
+├── .vscode
+├── Banco de dados
+│   └── CriacaoBanco.sql
 │
-├── orbyt
-│   ├── assets
-│   │   └── logo
-│   │       └── logo-orbyt.png
-│   │
-│   └── src
-│       └── main
-│           └── java
-│               └── com
-│                   └── senacsolutions
-│                       └── Main.java
+├── Documentacao
 │
-└── pom.xml
+├── src
+│   └── main
+│       ├── java
+│       │   └── com.senacsolutions
+│       │       ├── controller
+│       │       ├── dao
+│       │       ├── model
+│       │       ├── utils
+│       │       └── view
+│       │
+│       └── resources
+│           ├── Banco.properties.example
+│           ├── logo-app.png
+│           └── logo-orbyt.png
+│
+├── target
+├── pom.xml
+├── .gitignore
+└── README.md
 ```
+---
 
+🏛️ Arquitetura
+
+O projeto segue uma arquitetura baseada no padrão MVC (Model-View-Controller), promovendo organização, manutenção facilitada e separação de responsabilidades.
+
+Camada| Responsabilidade
+Model| Entidades e regras de negócio
+View| Interface gráfica Swing
+Controller| Controle do fluxo da aplicação
+DAO| Persistência e acesso aos dados
+Utils| Recursos utilitários compartilhados
+
+---
+
+🔐 Segurança
+
+O sistema implementa mecanismos para garantir a integridade dos dados:
+
+- Criptografia de senhas com BCrypt
+- Controle de acesso por perfil
+- Validação de CPF
+- Restrições de integridade no banco de dados
+- Controle de concorrência em Ordens de Serviço
+
+---
 ---
 
 # 🚀 Como Executar o Projeto
@@ -121,7 +159,7 @@ ORBYT
 ### Clonando o repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/orbyt.git
+git clone https://github.com/Andrey-Gabriel-Ben/Orbyt .git
 ```
 
 ### Entrando no diretório
@@ -146,57 +184,57 @@ mvn exec:java
 Funcionalidades sendo implementadas de forma incremental seguindo os requisitos definidos para o projeto.
 
 ---
+🌱 Estratégia de Versionamento
 
-# 👨‍💻 Equipe de Desenvolvimento
+O projeto utiliza Git e GitHub para controle de versão, permitindo desenvolvimento colaborativo através de branches específicas para implementação de funcionalidades, correções e homologação.
 
-<table>
+# ---
+
+👨‍💻 Equipe de Desenvolvimento
+
+<table align="center">
+<tr><td align="center"><a href="https://github.com/alexx-al3">
+<img src="https://github.com/alexx-al3.png" width="140px">
+</a><br><br>
+
+<b>Alex Alves</b>
+
+<br>Desenvolvedor Java • Fotógrafo • Produtor Audiovisual
+
+<br><br>
+
+<a href="https://github.com/alexx-al3">GitHub</a>
+
+</td><td width="80"></td><td align="center"><a href="https://github.com/Andrey-Gabriel-Ben">
+<img src="https://github.com/Andrey-Gabriel-Ben.png" width="140px">
+</a><br><br>
+
+<b>Andrey Gabriel</b>
+
+<br>Desenvolvedor Java
+
+<br><br>
+
+<a href="https://github.com/Andrey-Gabriel-Ben">GitHub</a>
+
+</td></tr>
+</table>---
+
+👨‍🏫 Orientação Acadêmica
+
+<table align="center">
 <tr>
+<td align="center"><b>Prof. Rodrigo Costa</b>
 
-<td align="center">
-<a href="https://github.com/usuario1">
-<img src="https://github.com/usuario1.png" width="120px;" alt="Aluno 1"/>
-<br>
-<b>Nome do Aluno 1</b>
-</a>
-</td>
+<br>Professor Orientador do Projeto Integrador
 
-<td align="center">
-<a href="https://github.com/usuario2">
-<img src="https://github.com/usuario2.png" width="120px;" alt="Aluno 2"/>
-<br>
-<b>Nome do Aluno 2</b>
-</a>
-</td>
+<br><br>
 
-<td align="center">
-<a href="https://github.com/usuario3">
-<img src="https://github.com/usuario3.png" width="120px;" alt="Aluno 3"/>
-<br>
-<b>Nome do Aluno 3</b>
-</a>
-</td>
-
+<a href="https://github.com/razevedocosta">
+GitHub
+</a></td>
 </tr>
 </table>
-
----
-
-# 🎓 Orientação
-
-<table>
-<tr>
-
-<td align="center">
-<a href="https://github.com/orientador">
-<img src="https://github.com/orientador.png" width="140px;" alt="Orientador"/>
-<br>
-<b>Nome do Orientador</b>
-</a>
-</td>
-
-</tr>
-</table>
-
 ---
 
 # 📄 Licença
