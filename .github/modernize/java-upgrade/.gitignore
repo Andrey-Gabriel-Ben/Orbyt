@@ -1,0 +1,19 @@
+*.# --- COMPILAÇÃO E MAVEN ---
+# Ignora a pasta target inteira (onde ficam os arquivos .class compilados e os artefatos)
+target/
+*.class
+
+# --- IDEs (Arquivos de configuração local) ---
+.settings/
+.classpath
+.project
+.idea/
+*.iml
+*.factorypath
+
+# --- SEGURANÇA E CONFIGURAÇÕES LOCAIS ---
+# Ignora especificamente o arquivo com as credenciais do seu banco de dados
+Banco.properties
+
+# Ignorar arquivos de log do ambiente de desenvolvimento
+.github/
