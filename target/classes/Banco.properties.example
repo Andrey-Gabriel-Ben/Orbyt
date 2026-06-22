@@ -1,4 +1,0 @@
-# Exemplo de configuração - Preencha com os dados locais do seu PostgreSQL
-db.url=jdbc:postgresql://localhost:5432/senac_solutions
-db.user=seu_usuario
-db.password=sua_senha_aqui
