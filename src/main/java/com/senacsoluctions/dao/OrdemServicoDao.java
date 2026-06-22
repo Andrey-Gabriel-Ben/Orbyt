@@ -18,24 +18,23 @@ public class OrdemServicoDao {
 
     // Consulta base usada por todas as listagens: já traz cliente, equipamento
     // e técnico (quando houver) prontos, evitando N+1 select.
-    private static final String SELECT_BASE =
-            "SELECT os.num_os, os.data_abertura, os.data_limite, os.status, os.descricao_defeito, "
-          + "       os.custo, os.observacoes, os.id_cliente, os.id_equipamento, os.id_tecnico, "
-          + "       c.nome AS cli_nome, c.cpf AS cli_cpf, c.telefone AS cli_telefone, c.email AS cli_email, "
-          + "       e.tipo AS eq_tipo, e.marca AS eq_marca, e.modelo AS eq_modelo, e.num_serie AS eq_num_serie, "
-          + "       t.nome AS tec_nome, t.login AS tec_login, t.cargo AS tec_cargo "
-          + "FROM ordem_servico os "
-          + "JOIN cliente c ON c.id_cliente = os.id_cliente "
-          + "JOIN equipamento e ON e.id_equipamento = os.id_equipamento "
-          + "LEFT JOIN usuario t ON t.id_usuario = os.id_tecnico ";
+    private static final String SELECT_BASE = "SELECT os.num_os, os.data_abertura, os.data_limite, os.status, os.defeito, "
+            + "       os.custo, os.observacoes, os.id_cliente, os.id_equipamento, os.id_tecnico, "
+            + "       c.nome AS cli_nome, c.cpf AS cli_cpf, c.telefone AS cli_telefone, c.email AS cli_email, "
+            + "       e.tipo AS eq_tipo, e.marca AS eq_marca, e.modelo AS eq_modelo, e.num_serie AS eq_num_serie, "
+            + "       t.nome AS tec_nome, t.login AS tec_login, t.cargo AS tec_cargo "
+            + "FROM ordem_servico os "
+            + "JOIN cliente c ON c.id_cliente = os.id_cliente "
+            + "JOIN equipamento e ON e.id_equipamento = os.id_equipamento "
+            + "LEFT JOIN usuario t ON t.id_usuario = os.id_tecnico ";
 
     public boolean salvarOS(OrdemServico os) {
         String sql = "INSERT INTO ordem_servico "
-                   + "(data_abertura, data_limite, status, defeito, custo, observacoes, id_cliente, id_equipamento) "
-                   + "VALUES (?, ?, ?::status_os, ?, ?, ?, ?, ?)";
+                + "(data_abertura, data_limite, status, defeito, custo, observacoes, id_cliente, id_equipamento) "
+                + "VALUES (?, ?, ?::status_os, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexaoBanco.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setTimestamp(1, new java.sql.Timestamp(os.getDataAbertura().getTime()));
             stmt.setDate(2, new java.sql.Date(os.getDataLimite().getTime()));
@@ -63,32 +62,43 @@ public class OrdemServicoDao {
         return false;
     }
 
-    /** T1: OS já finalizadas pelo técnico, aguardando o cliente retirar o equipamento. */
+    /**
+     * T1: OS já finalizadas pelo técnico, aguardando o cliente retirar o
+     * equipamento.
+     */
     public List<OrdemServico> listarFinalizadasPendentesEntrega() {
         String sql = SELECT_BASE + "WHERE os.status = '" + StatusOS.FINALIZADA + "'::status_os "
-                   + "ORDER BY os.data_abertura ASC";
+                + "ORDER BY os.data_abertura ASC";
         return listar(sql, null);
     }
 
-    /** T2: OS de um cliente específico que ainda não estão finalizadas nem concluídas. */
+    /**
+     * T2: OS de um cliente específico que ainda não estão finalizadas nem
+     * concluídas.
+     */
     public List<OrdemServico> listarPendentesPorCliente(int idCliente) {
         String sql = SELECT_BASE + "WHERE os.id_cliente = ? "
-                   + "AND os.status NOT IN ('" + StatusOS.FINALIZADA + "'::status_os, '" + StatusOS.CONCLUIDA + "'::status_os) "
-                   + "ORDER BY os.data_limite ASC";
+                + "AND os.status NOT IN ('" + StatusOS.FINALIZADA + "'::status_os, '" + StatusOS.CONCLUIDA
+                + "'::status_os) "
+                + "ORDER BY os.data_limite ASC";
         return listar(sql, stmt -> stmt.setInt(1, idCliente));
     }
 
     /** T3 (opção 1): OS que o técnico logado já assumiu e ainda está atendendo. */
     public List<OrdemServico> listarPendentesPorTecnico(int idTecnico) {
         String sql = SELECT_BASE + "WHERE os.id_tecnico = ? AND os.status = '" + StatusOS.EM_ANDAMENTO + "'::status_os "
-                   + "ORDER BY os.data_limite ASC";
+                + "ORDER BY os.data_limite ASC";
         return listar(sql, stmt -> stmt.setInt(1, idTecnico));
     }
 
-    /** T3 (opção 2): fila de OS em aberto, sem técnico ainda, ordenada por prazo (estilo Overcooked). */
+    /**
+     * T3 (opção 2): fila de OS em aberto, sem técnico ainda, ordenada por prazo
+     * (estilo Overcooked).
+     */
     public List<OrdemServico> listarDisponiveisParaTecnico() {
-        String sql = SELECT_BASE + "WHERE os.status = '" + StatusOS.EM_ABERTO + "'::status_os AND os.id_tecnico IS NULL "
-                   + "ORDER BY os.data_limite ASC";
+        String sql = SELECT_BASE + "WHERE os.status = '" + StatusOS.EM_ABERTO
+                + "'::status_os AND os.id_tecnico IS NULL "
+                + "ORDER BY os.data_limite ASC";
         return listar(sql, null);
     }
 
@@ -98,7 +108,10 @@ public class OrdemServicoDao {
         return resultado.isEmpty() ? null : resultado.get(0);
     }
 
-    /** Usada na tela de detalhe (T3) para o técnico atualizar as observações do atendimento. */
+    /**
+     * Usada na tela de detalhe (T3) para o técnico atualizar as observações do
+     * atendimento.
+     */
     public boolean atualizarObservacoes(int numOs, String observacoes) {
         String sql = "UPDATE ordem_servico SET observacoes = ? WHERE num_os = ?";
         try (Connection conn = ConexaoBanco.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -113,12 +126,14 @@ public class OrdemServicoDao {
     }
 
     /**
-     * O técnico "pega" uma OS da fila: vincula o id_tecnico e avança o status para EM_ANDAMENTO.
-     * A condição id_tecnico IS NULL evita que dois técnicos assumam a mesma OS ao mesmo tempo.
+     * O técnico "pega" uma OS da fila: vincula o id_tecnico e avança o status para
+     * EM_ANDAMENTO.
+     * A condição id_tecnico IS NULL evita que dois técnicos assumam a mesma OS ao
+     * mesmo tempo.
      */
     public boolean assumirOS(int numOs, int idTecnico) {
         String sql = "UPDATE ordem_servico SET id_tecnico = ?, status = ?::status_os "
-                   + "WHERE num_os = ? AND id_tecnico IS NULL";
+                + "WHERE num_os = ? AND id_tecnico IS NULL";
         try (Connection conn = ConexaoBanco.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idTecnico);
             stmt.setString(2, StatusOS.EM_ANDAMENTO);
@@ -126,6 +141,24 @@ public class OrdemServicoDao {
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Erro ao assumir a OS: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Muda o status da OS para FINALIZADA (técnico concluiu o reparo).
+     * O status CONCLUIDA é reservado para quando o atendente confirma a
+     * retirada pelo cliente (ver marcarComoConcluida).
+     */
+    public boolean finalizarOS(int numOs) {
+        String sql = "UPDATE ordem_servico SET status = ?::status_os WHERE num_os = ?";
+        try (Connection conn = ConexaoBanco.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, StatusOS.FINALIZADA);
+            stmt.setInt(2, numOs);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Erro ao finalizar a OS #" + numOs + ": " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -203,7 +236,7 @@ public class OrdemServicoDao {
         os.setDataAbertura(rs.getTimestamp("data_abertura"));
         os.setDataLimite(rs.getDate("data_limite"));
         os.setStatus(rs.getString("status"));
-        os.setDescricaoDefeito(rs.getString("descricao_defeito"));
+        os.setDescricaoDefeito(rs.getString("defeito"));
         os.setCusto(rs.getDouble("custo"));
         os.setObservacoes(rs.getString("observacoes"));
         os.setCliente(cliente);

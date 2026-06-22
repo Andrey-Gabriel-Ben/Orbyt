@@ -50,7 +50,7 @@ CREATE TABLE ordem_servico (
     data_abertura TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     data_limite DATE NOT NULL,       
     status status_os NOT NULL DEFAULT 'EM_ABERTO',
-    descricao_defeito TEXT NOT NULL,
+    defeito TEXT NOT NULL,
     custo DECIMAL(10,2),            
     observacoes TEXT,               
     id_cliente INT NOT NULL,         

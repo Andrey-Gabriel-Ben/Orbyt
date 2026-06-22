@@ -45,7 +45,8 @@ public class OrdemServicoControler {
             return;
         }
 
-        // 3. Verificação da Descrição do Defeito (descricao_defeito é NOT NULL no banco)
+        // 3. Verificação da Descrição do Defeito (descricao_defeito é NOT NULL no
+        // banco)
         String descricaoDefeito = txtDescricaoDefeito.getText().trim();
         if (descricaoDefeito.isEmpty()) {
             Utils.mostrarErro(lblMensagemErro, txtDescricaoDefeito, "Descreva o defeito relatado pelo cliente!");
@@ -139,7 +140,8 @@ public class OrdemServicoControler {
     // ---------------------------------------------------------------
 
     public List<OrdemServico> listarPendentesPorCliente(Cliente cliente) {
-        if (cliente == null) return List.of();
+        if (cliente == null)
+            return List.of();
         return osDao.listarPendentesPorCliente(cliente.getIdCliente());
     }
 
@@ -167,5 +169,15 @@ public class OrdemServicoControler {
 
     public boolean salvarObservacoes(int numOs, String observacoes) {
         return osDao.atualizarObservacoes(numOs, observacoes);
+    }
+    
+    public boolean finalizarOS(int numOs, JFrame telaAtual) {
+        boolean sucesso = osDao.finalizarOS(numOs);
+        if (!sucesso) {
+            JOptionPane.showMessageDialog(telaAtual,
+                    "Não foi possível atualizar o status da OS #" + numOs + " no banco de dados.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return sucesso;
     }
 }

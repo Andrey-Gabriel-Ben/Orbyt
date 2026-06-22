@@ -93,4 +93,10 @@ public class UsuarioDao {
         }
         return null; // Retorna null caso o usuário não exista ou ocorra um erro
     }
+
+    public static void main(String[] args) {
+        String senha = "12345678";
+
+        System.out.println(BCrypt.hashpw(senha, BCrypt.gensalt()));
+    }
 }
